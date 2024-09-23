@@ -29,8 +29,18 @@ JS ファイルをバンドル
 ```
 
 - `app/javascript`: ディレクトリ内のすべてのファイルをバンドル対象にする
-- `--bundle`: 依存関係を解決し、1つのファイルにバンドルする
+- `--bundle`: 依存関係を解決し、1 つのファイルにバンドルする
 - `--sourcemap`: ソースマップを生成する。デバッグ時に元のソースコードを参照できる
-- `--format=esm`: 出力フォーマットをESモジュールに設定する
+- `--format=esm`: 出力フォーマットを ES モジュールに設定する
 - `--outdir=app/assets/builds`: ビルドしたファイルを`app/assets/builds`ディレクトリに保存する
 - `--public-path=/assets`: 出力ファイルの公開パスを`/assets`に設定する。ブラウザがファイルを取得するときの基準となるパス
+
+CSS ファイルをビルド
+
+```js
+"build:css": "sass ./app/assets/stylesheets/application.bulma.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+```
+
+- `./app/assets/stylesheets/application.bulma.scss`ファイルをビルドして、`./app/assets/builds/application.css`として出力する
+
+
