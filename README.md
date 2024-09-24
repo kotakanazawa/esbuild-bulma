@@ -41,6 +41,11 @@ CSS ファイルをビルド
 "build:css": "sass ./app/assets/stylesheets/application.bulma.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
 ```
 
-- `./app/assets/stylesheets/application.bulma.scss`ファイルをビルドして、`./app/assets/builds/application.css`として出力する
-
-
+- `./app/assets/stylesheets/application.bulma.scss`という Sass ファイルをコンパイルして CSS に変換され、`./app/assets/builds/application.css`として出力する
+- `--no-source-map`: 本番環境ではソースマップを生成しない。
+  - ソースマップは開発中にデバッグを容易にするためのもの。本番環境中ではデバッグはおこなわないのでオフにしている
+  - 本番環境にソースマップを含めるとファイルサイズが増えてパフォーマンス低下の懸念もある。また、ソースマップを生成するには追加処理が必要になり、そのぶんビルド時間が伸びる
+  - セキュリティ、プライバシーの観点からオフにしている
+- `--load-path=node_modules`: Sass が SCSS ファイルの中で`@import`するとき、`node_modules`ディレクトリ内も検索するように指定する。これで Bulma やその他の外部パッケージが正常に import される
+  - Sass コンパイラはデフォルトだとインポートするファイルを同じディレクトリや相対パスで探す。Bulma は`node_modules`ディレクトリにインストールされているため、通常のパス設定では見つからない
+  - つまり、`--load-path=node_modules`を指定しないと、SCSS ファイルないで`@import 'bulma/bulma';`といった `node_modules`内のパッケージを import しようとしても、Sass コンパイラがパスを見つけられずエラーになる
